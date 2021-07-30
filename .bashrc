@@ -54,11 +54,11 @@ function parse_git_dirty() {
 }
 
 function determine_branch_color() {
-  GREEN="\[\033[32m\]"
-  RED="\[\033[31m\]"
-  YELLOW="\[\033[33m\]"
-  LIGHT_GRAY="\[\033[37m\]"
-  STATUS=`parse_git_dirty`
+  local GREEN="\[\033[32m\]"
+  local RED="\[\033[31m\]"
+  local YELLOW="\[\033[33m\]"
+  local LIGHT_GRAY="\[\033[37m\]"
+  local STATUS=`parse_git_dirty`
   local color=''
   if [ "${STATUS}" == ">" ]; then
     color="${ORANGE}"
