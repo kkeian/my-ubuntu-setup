@@ -16,7 +16,7 @@ function parse_git_branch() {
   if [ ! "${BRANCH}" == "" ]
   then
     STAT=`parse_git_dirty`
-    echo "${BRANCH}${STAT}"
+    echo "${BRANCH} ${STAT}"
   else
     echo ""
   fi
@@ -51,7 +51,7 @@ function parse_git_dirty() {
     bits="!${bits}"
   fi
   if [ ! "${bits}" == "" ]; then
-    echo " ${bits}"
+    echo "${bits}"
   else
     echo ""
   fi
@@ -60,31 +60,28 @@ function parse_git_dirty() {
 function determine_branch_color() {
   STATUS=`parse_git_dirty`
   local color=''
-  if [ "${STATUS}" == " >" ]; then
+  if [ "${STATUS}" == ">" ]; then
     color="${ORANGE}"
   fi
-  if [ "${STATUS}" == " *" ]; then
+  if [ "${STATUS}" == "*" ]; then
     color="${YELLOW}"
   fi
-  if [ "${STATUS}" == " +" ]; then
+  if [ "${STATUS}" == "+" ]; then
     color="${RED}"
   fi
-  if [ "${STATUS}" == " ?" ]; then
+  if [ "${STATUS}" == "?" ]; then
     color="${RED}"
   fi
-  if [ "${STATUS}" == " x" ]; then
+  if [ "${STATUS}" == "x" ]; then
     color="${RED}"
   fi
-  if [ "${STATUS}" == " !" ]; then
+  if [ "${STATUS}" == "!" ]; then
     color="${RED}"
-  fi
-  if [ "${STATUS}" == " " ]; then
-    color="${GREEN}"
   fi
   if [ ! "$color" == "" ]; then
     echo "$color"
   else
-    echo "${GREEN}"
+    echo ""
   fi
 }
 
