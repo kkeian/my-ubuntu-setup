@@ -1,3 +1,7 @@
+# Define color codes to substitute
+LIGHT_BLUE="\[\e[36m\]"
+ORANGE="\[\033[38;5;166m\]"
+
 # enable bash-completion (installed via homebrew)
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
@@ -48,4 +52,4 @@ function parse_git_dirty {
   fi
 }
 
-export PS1="\[\e[36m\]\`git config user.name\` \[\033[38;5;166m\]\W\[\e[m\]\[\e[32m\] \`parse_git_branch\` \[\e[m\]"
+export PS1="${LIGHT_BLUE}\`git config user.name\` ${ORANGE}\W\[\e[m\]\[\e[32m\] \`parse_git_branch\` \[\e[m\]"
