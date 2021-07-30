@@ -2,6 +2,7 @@
 LIGHT_BLUE="\[\033[36m\]"
 ORANGE="\[\033[38;5;166m\]"
 PURPLE="\[\033[35m\]"
+GREEN="\[\033[32m\]"
 
 # enable bash-completion (installed via homebrew)
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
@@ -53,37 +54,4 @@ function parse_git_dirty() {
   fi
 }
 
-function determine_branch_color() {
-  local GREEN="\[\033[32m\]"
-  local RED="\[\033[31m\]"
-  local YELLOW="\[\033[33m\]"
-  local LIGHT_GRAY="\[\033[37m\]"
-  local STATUS=`parse_git_dirty`
-  local color=''
-  if [ "${STATUS}" == ">" ]; then
-    color="${ORANGE}"
-  fi
-  if [ "${STATUS}" == "*" ]; then
-    color="${YELLOW}"
-  fi
-  if [ "${STATUS}" == "+" ]; then
-    color="${RED}"
-  fi
-  if [ "${STATUS}" == "?" ]; then
-    color="${RED}"
-  fi
-  if [ "${STATUS}" == "x" ]; then
-    color="${RED}"
-  fi
-  if [ "${STATUS}" == "!" ]; then
-    color="${RED}"
-  fi
-  if [ ! "$color" == "" ]; then
-    echo "$color"
-  else
-    echo "${GREEN}"
-  fi
-}
-# Test edit
-
-export PS1="${LIGHT_BLUE}\`git config user.name\` ${ORANGE}\W\[\e[m\] ${PURPLE}[$(determine_branch_color)\`parse_git_branch\`${PURPLE}] \[\e[m\]"
+export PS1="${LIGHT_BLUE}\`git config user.name\` ${ORANGE}\W\[\e[m\] ${PURPLE}[${GREEN}\`parse_git_branch\`${PURPLE}] \[\e[m\]"
