@@ -12,7 +12,7 @@ function parse_git_branch() {
   if [ ! "${BRANCH}" == "" ]
   then
     STAT=`parse_git_dirty`
-    echo "${BRANCH} ${STAT}"
+    echo "${BRANCH}${STAT}"
   else
     echo ""
   fi
@@ -47,7 +47,7 @@ function parse_git_dirty() {
     bits="!"
   fi
   if [ ! "${bits}" == "" ]; then
-    echo "${bits}"
+    echo " ${bits}"
   else
     echo ""
   fi
