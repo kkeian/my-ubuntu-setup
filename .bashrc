@@ -1,6 +1,11 @@
 # Define color codes to substitute
-LIGHT_BLUE="\[\e[36m\]"
+LIGHT_BLUE="\[\033[36m\]"
 ORANGE="\[\033[38;5;166m\]"
+GREEN="\[\033[32m\]"
+RED="\[\033[31m\]"
+YELLOW="\[\033[33m\]"
+LIGHT_GRAY="\[\033[37m\]"
+PURPLE="\[\033[35m\]"
 
 # enable bash-completion (installed via homebrew)
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
@@ -11,14 +16,14 @@ function parse_git_branch() {
   if [ ! "${BRANCH}" == "" ]
   then
     STAT=`parse_git_dirty`
-    echo "[${BRANCH}${STAT}]"
+    echo "${BRANCH}${STAT}"
   else
     echo ""
   fi
 }
 
 # get current status of git repo
-function parse_git_dirty {
+function parse_git_dirty() {
   status=`git status 2>&1 | tee`
   dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
   untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
@@ -52,4 +57,33 @@ function parse_git_dirty {
   fi
 }
 
-export PS1="${LIGHT_BLUE}\`git config user.name\` ${ORANGE}\W\[\e[m\]\[\e[32m\] \`parse_git_branch\` \[\e[m\]"
+function determine_branch_color() {
+  STATUS=`parse_git_dirty`
+  local color=''
+  if [ "${STATUS}" == " >" ]; then
+    color="${ORANGE}"
+  fi
+  if [ "${STATUS}" == " *" ]; then
+    color="${YELLOW}"
+  fi
+  if [ "${STATUS}" == " +" ]; then
+    color="${RED}"
+  fi
+  if [ "${STATUS}" == " ?" ]; then
+    color="${RED}"
+  fi
+  if [ "${STATUS}" == " x" ]; then
+    color="${RED}"
+  fi
+  if [ "${STATUS}" == " !" ]; then
+    color="${RED}"
+  fi
+  if [ ! "$color" == "" ]; then
+    echo "$color"
+  else
+    echo ""
+  fi
+}
+
+COLOR=$(determine_branch_color)
+export PS1="${LIGHT_BLUE}\`git config user.name\` ${ORANGE}\W\[\e[m\] ${PURPLE}[${COLOR}\`parse_git_branch\`${PURPLE}] \[\e[m\]"
