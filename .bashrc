@@ -78,10 +78,13 @@ function determine_branch_color() {
   if [ "${STATUS}" == " !" ]; then
     color="${RED}"
   fi
+  if [ "${STATUS}" == " " ]; then
+    color="${GREEN}"
+  fi
   if [ ! "$color" == "" ]; then
     echo "$color"
   else
-    echo "${GREEN}"
+    echo ""
   fi
 }
 
