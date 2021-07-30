@@ -84,7 +84,7 @@ function determine_branch_color() {
   if [ ! "$color" == "" ]; then
     echo "$color"
   else
-    echo ""
+    echo "${GREEN}"
   fi
 }
 
