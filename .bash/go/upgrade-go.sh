@@ -12,7 +12,7 @@ TEMP=/tmp
 # Move old go version to /tmp to be erased on next boot
 if [ ! $GOROOT == "/usr/local" ]; then
 	sudo mv $GOROOT $TEMP
-	OLDGO="${TEMP}${GOROOT}" 
+	OLDGO="${TEMP}/go"
 	# Rename folder to something recognizable
 	sudo mv $OLDGO "${OLDGO}-old"
 fi
