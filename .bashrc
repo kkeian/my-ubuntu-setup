@@ -115,4 +115,5 @@ function parse_git_dirty() {
   fi
 }
 
+# Prompt
 export PS1="${LIGHT_BLUE}\`git config user.name\` ${ORANGE}\W\[\e[m\] ${PURPLE}[$(determine_branch_color)\`parse_git_branch\`${PURPLE}] \[\e[m\]"
