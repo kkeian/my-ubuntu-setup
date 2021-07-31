@@ -11,7 +11,7 @@ fi
 OLDGO="${GOROOT}-old"
 
 # Change name of old go base dir
-if [ $GOROOT != "" ]; then
+if [ ! $GOROOT == "" ]; then
 	sudo mv $GOROOT $OLDGO
 fi
 
