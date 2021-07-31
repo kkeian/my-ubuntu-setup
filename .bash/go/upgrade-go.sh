@@ -4,11 +4,12 @@ go env GOROOT 2> /dev/null
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
 	GOROOT=$(go env GOROOT)
+	OLDGO="${GOROOT}-old"
 elif [ $STATUS -eq 1 ] || [ $STATUS -eq 2 ]; then
 	GOROOT=/usr/local
+	OLDGO=""
 fi
 
-OLDGO="${GOROOT}-old"
 
 # Change name of old go base dir
 if [ ! $GOROOT == "" ]; then
@@ -21,4 +22,6 @@ DOWNLOADS=$HOME/Downloads
 cd $DOWNLOADS && sudo tar -C /usr/local -xzf $NEWGO
 
 # Remove old version of go from system
-sudo rm -rf $OLDGO
+if [ ! $OLDGO == "" ]; then
+	rm -r $OLDGO
+fi
