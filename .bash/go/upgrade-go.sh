@@ -1,6 +1,6 @@
 #!/bin/bash
 
-go env GOROOT
+go env GOROOT 2> /dev/null
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
 	GOROOT=$(go env GOROOT)
